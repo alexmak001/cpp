@@ -48,7 +48,9 @@ class Card{
     int value;
 
 public:
-
+    // Pass by Value: by defualt all data is copied when passed into any function all C++ (no reference)
+    // Pass by Reference: passing in a pointer not a primitive - use & infront of variable name
+    // const in front of string - cannot be changed by reference 
     Card(string s, string c, int v): suit(s), card(c), value(v){
         // initialize card
         // suit
@@ -62,6 +64,8 @@ public:
     };
 
     // static game
+    // TODO: create a map key: enum(suit) value: string(hearts)
+    // TODO: create map key: enum(rank) value string("Ace")
 
     // get the card rank
     string get_suit(){
@@ -80,6 +84,7 @@ public:
     // TODO: create a map for values to work on enumerated variables
     int get_value(){
 
+    // TODO: make static, so only initialized once, use initializer list (look up)
     map<Rank, int> blackjackValues;
 
     blackjackValues[Two] = 2;
@@ -126,12 +131,15 @@ class Deck{
         // create a deck of cards
         // TODO: Enumurate suit and card to reduce memory
         // creating deck variables
+        // TODO: change array to vector
         string allSuits[] = {"Hearts", "Spades", "Diamonds", "Clubs"};
 
         string allCards[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
             "Jack", "Queen", "King", "Ace"};
 
         // TODO: loop through enum variables and use them instead of Strings
+        // TODO: create a vector of Cards (which intake enum) (hardcoded for all cards)
+
 
         // temp variables
         int value;
@@ -143,6 +151,7 @@ class Deck{
         int numCards = sizeof(allCards) / sizeof(allCards[0]);
 
         // loop through suits
+        // TODO: put ++ infront of i to make it quicker
         for(int i =0; i<numSuits; i++){
             
             // loop through variables
@@ -180,8 +189,8 @@ class Deck{
     // TODO: use random number generator to shuffle
     // how does this work?
     void shuffle_deck(){
-        random_device rd;
-        mt19937 g(rd());
+        random_device rd; // device
+        mt19937 g(rd()); // algorithm to shuffle
         shuffle(deck.begin(), deck.end(), g);
     }
 
