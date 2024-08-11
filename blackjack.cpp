@@ -14,7 +14,7 @@ using namespace std;
 #include <algorithm> // for shuffle
 #include <random> // random number generator
 
-// enumurated classes
+// enum suit
 enum Suit {
     Hearts,
     Diamonds,
@@ -22,6 +22,7 @@ enum Suit {
     Spades
 };
 
+// enum rank
 enum Rank {
     Two,
     Three,
@@ -38,72 +39,92 @@ enum Rank {
     Ace
 };
 
+// enum variable suit mapping to string
+static map<Suit, std::string> suitToString = {
+            {Suit::Hearts, "Hearts"},
+            {Suit::Diamonds, "Diamonds"},
+            {Suit::Clubs, "Clubs"},
+            {Suit::Spades, "Spades"}
+        };
+
+// enum variable rank mapping to string
+static map<Rank, std::string> rankToString = {
+            {Rank::Two, "Two"},
+            {Rank::Three, "Three"},
+            {Rank::Four, "Four"},
+            {Rank::Five, "Five"},
+            {Rank::Six, "Six"},
+            {Rank::Seven, "Seven"},
+            {Rank::Eight, "Eight"},
+            {Rank::Nine, "Nine"},
+            {Rank::Ten, "Ten"},
+            {Rank::Jack, "Jack"},
+            {Rank::Queen, "Queen"},
+            {Rank::King, "King"},
+            {Rank::Ace, "Ace"}
+        };
+
+// map for values to work on enumerated variables
+static std::map<Rank, int> blackjackValues = {
+        {Rank::Two, 2},
+        {Rank::Three, 3},
+        {Rank::Four, 4},
+        {Rank::Five, 5},
+        {Rank::Six, 6},
+        {Rank::Seven, 7},
+        {Rank::Eight, 8},
+        {Rank::Nine, 9},
+        {Rank::Ten, 10},
+        {Rank::Jack, 10},
+        {Rank::Queen, 10},
+        {Rank::King, 10},
+        {Rank::Ace, 11} // Treating Ace as 11 for simplicity
+};
 
 // card class
 class Card{
 
     // declaring variable
-    string suit;
-    string card;
-    int value;
+    Suit enumSuit;
+    Rank enumRank;
+
+
 
 public:
     // Pass by Value: by defualt all data is copied when passed into any function all C++ (no reference)
     // Pass by Reference: passing in a pointer not a primitive - use & infront of variable name
     // const in front of string - cannot be changed by reference 
-    Card(string s, string c, int v): suit(s), card(c), value(v){
-        // initialize card
-        // suit
-        // card -> change to rank
-        
-        suit = s;
-        card = c;
-        value = v;
-        cout << "Card Created; value: " << value << " suit: " << suit << " card: " << card << endl;
+
+    Card(Suit s, Rank r): enumSuit(s), enumRank(r){
+        // initialize a card with suit and rank
+
+        cout << "Enum Card Created; " << "\t suit: " << suitToString[enumSuit] << "\t rank: " << rankToString[enumRank] << "\t value: " << blackjackValues[enumRank] << endl;
 
     };
 
-    // static game
-    // TODO: create a map key: enum(suit) value: string(hearts)
-    // TODO: create map key: enum(rank) value string("Ace")
-
     // get the card rank
     string get_suit(){
-        cout << "Card Suit: " << suit << endl;
-        return card;
+        cout << "Card Suit: " << suitToString[enumSuit] << endl;
+        return suitToString[enumSuit];
     };
 
     // get the card rank
     string get_rank(){
-        cout << "Card Rank: " << card << endl;
-        return card;
+        cout << "Card Rank: " << rankToString[enumRank] << endl;
+        return rankToString[enumRank];
     };
 
 
-    // get value of card (input game)
-    // TODO: create a map for values to work on enumerated variables
+    // TODO: allow for input of game name to get correct map - later
+    // TODO: use initializer list (look up) - what do i use this for??
+
+    // get value of card
     int get_value(){
+        // use map to get value
 
-    // TODO: make static, so only initialized once, use initializer list (look up)
-    map<Rank, int> blackjackValues;
+        cout << "Card Value: " << blackjackValues[enumRank] << endl;
 
-    blackjackValues[Two] = 2;
-    blackjackValues[Three] = 3;
-    blackjackValues[Four] = 4;
-    blackjackValues[Five] = 5;
-    blackjackValues[Six] = 6;
-    blackjackValues[Seven] = 7;
-    blackjackValues[Eight] = 8;
-    blackjackValues[Nine] = 9;
-    blackjackValues[Ten] = 10;
-    blackjackValues[Jack] = 10;
-    blackjackValues[Queen] = 10;
-    blackjackValues[King] = 10;
-    blackjackValues[Ace] = 11; // Treating Ace as 11 for simplicity
-
-
-        cout << "Card Value: " << value << endl;
-        return value;
+        return blackjackValues[enumRank];
     };
 
 };
@@ -119,9 +140,7 @@ class Deck{
 
     // vector of cards
     // reserve 52 spaces in vector (not critical for this length)
-    // TODO: how to specify a fixed length vector?
     vector<Card> deck;
-
 
     public:
     // initialize deck of cards
@@ -129,47 +148,29 @@ class Deck{
         cout << "Constructor called" << endl;
 
         // create a deck of cards
-        // TODO: Enumurate suit and card to reduce memory
-        // creating deck variables
-        // TODO: change array to vector
-        string allSuits[] = {"Hearts", "Spades", "Diamonds", "Clubs"};
 
-        string allCards[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-            "Jack", "Queen", "King", "Ace"};
-
-        // TODO: loop through enum variables and use them instead of Strings
-        // TODO: create a vector of Cards (which intake enum) (hardcoded for all cards)
-
-
-        // temp variables
-        int value;
-        string suit;
-        string card;
+        // loop through enum variables and use them instead of Strings
+        // TODO: Change to vector
+        Suit allSuitsEnum[] = {Hearts, Spades, Diamonds, Clubs};
+        Rank allRanksEnum[] = {Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace};
 
         // calc length of arrays
-        int numSuits = sizeof(allSuits) / sizeof(allSuits[0]);
-        int numCards = sizeof(allCards) / sizeof(allCards[0]);
+        int numSuits = sizeof(allSuitsEnum) / sizeof(allSuitsEnum[0]);
+        int numCards = sizeof(allRanksEnum) / sizeof(allRanksEnum[0]);
 
         // loop through suits
-        // TODO: put ++ infront of i to make it quicker
-        for(int i =0; i<numSuits; i++){
+        // ++ infront of i to make it quicker
+        // TODO: why does ++i not start index at 1??
+        for(int i =0; i<numSuits; ++i){
             
             // loop through variables
-            for(int j=0; j<numCards; j++){
+            for(int j=0; j<numCards; ++j){
 
-                // get value of card
-                if (j < 9){
-                    value = j+1;
-                }else{
-                    value = 10;
-                }
-
-                suit = allSuits[i];
-                card = allCards[j];
                 // memory is allocated
                 // pushback - copies the object to vector (2 copies)
                 // emplace - creates object directly in vector
-                deck.emplace_back(Card(suit, card, value));
+
+                deck.emplace_back(Card(allSuitsEnum[i], allRanksEnum[j]));
             }
         };
 
@@ -186,8 +187,7 @@ class Deck{
         cout << "The game is: " << Deck::GAME << endl;
     }
 
-    // TODO: use random number generator to shuffle
-    // how does this work?
+    // use random number generator to shuffle
     void shuffle_deck(){
         random_device rd; // device
         mt19937 g(rd()); // algorithm to shuffle
@@ -223,8 +223,13 @@ int main() {
 
     // testing Deck
     Deck deck = Deck();
+
+    cout << "\n"; 
+
     deck.set_game("blackjack");
     deck.get_game();
+
+    cout << "\n"; 
 
     // draw card
     deck.draw_a_card();
@@ -232,20 +237,40 @@ int main() {
     cout << "Card After shuffled deck: " << endl;
     deck.draw_a_card();
 
+    cout << "\n"; 
+
     // testing card
-    Card card = Card("hearts","Queen",10);
+    Card card = Card(Hearts,Queen);
     int cardValTest = card.get_value();
-    cout << "returned card Value: " << cardValTest << endl;
+    string cardSuitTest = card.get_suit();
+    string cardRankTest = card.get_rank();
+    // // TODO: Why does it not print the COUT within the get_() function ??
+    // cout << "returned card Value: " << cardValTest << endl;
+    // cout << "returned card Suit: " << cardSuitTest << endl;
+    // cout << "returned card Rank: " << cardRankTest << endl;
 
+    cout << "\n"; 
 
+    // testing enum Suits
+    Suit allSuitsEnum[] = {Hearts, Spades, Diamonds, Clubs};
+    Suit enumSuit = allSuitsEnum[0];
+    string testSuit = suitToString[enumSuit];
+    cout << "Converting Enum Suit to String:  " << testSuit << endl;
 
-    // testing enum
-    enum allSuits{
-        Hearts,
-        Spades,
-        Diamonds,
-        Clubs
-    };
+    cout << "\n"; 
+
+    // testing enum rank
+    Rank allRanksEnum[] = {Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace};
+    Rank enumRank = allRanksEnum[2];
+    string testRank = rankToString[enumRank];
+    cout << "Converting Enum Rank to String:  " << testRank << endl;
+
+    cout << "\n"; 
+
+    // testing enum Card
+    Card enumCard = Card(enumSuit, enumRank);
+
+    // testing value map
 
     return 0;
 }
