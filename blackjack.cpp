@@ -207,7 +207,7 @@ class Deck{
         curCard.get_rank();
         curCard.get_suit();
 
-        // remove last variable
+        // remove last card
         deck.pop_back();
         
     };
