@@ -74,7 +74,7 @@ static std::map<Rank, int> blackjackValues = {
         {Rank::Jack, 10},
         {Rank::Queen, 10},
         {Rank::King, 10},
-        {Rank::Ace, 11} // Treating Ace as 11 for simplicity
+        {Rank::Ace, 11} // Treating Ace as 11 for simplicity, in real game can be 1
 };
 
 // card class
