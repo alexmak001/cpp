@@ -1,9 +1,5 @@
-//
 //  test.cpp
-//  
-//
 //  Created by ALex on 7/26/24.
-//
 
 #include <stdio.h>
 #include <iostream>
@@ -88,8 +84,6 @@ class Card{
     Suit enumSuit;
     Rank enumRank;
 
-
-
 public:
     // Pass by Value: by defualt all data is copied when passed into any function all C++ (no reference)
     // Pass by Reference: passing in a pointer not a primitive - use & infront of variable name
@@ -129,7 +123,6 @@ public:
 
 };
 
-
 // deck class
 class Deck{
 
@@ -165,7 +158,6 @@ class Deck{
             
             // loop through variables
             for(int j=0; j<numCards; ++j){
-
                 // memory is allocated
                 // pushback - copies the object to vector (2 copies)
                 // emplace - creates object directly in vector
@@ -173,7 +165,6 @@ class Deck{
                 deck.emplace_back(Card(allSuitsEnum[i], allRanksEnum[j]));
             }
         };
-
     };
 
     // sets game variable
