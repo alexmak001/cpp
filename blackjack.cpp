@@ -244,10 +244,6 @@ int main() {
     int cardValTest = card.get_value();
     string cardSuitTest = card.get_suit();
     string cardRankTest = card.get_rank();
-    // // TODO: Why does it not print the COUT within the get_() function ??
-    // cout << "returned card Value: " << cardValTest << endl;
-    // cout << "returned card Suit: " << cardSuitTest << endl;
-    // cout << "returned card Rank: " << cardRankTest << endl;
 
     cout << "\n"; 
 
