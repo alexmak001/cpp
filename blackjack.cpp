@@ -61,7 +61,7 @@ static map<Rank, std::string> rankToString = {
         };
 
 // map for values to work on enumerated variables
-static std::map<Rank, int> blackjackValues = {
+static const std::map<Rank, int> blackjackValues = {
         {Rank::Two, 2},
         {Rank::Three, 3},
         {Rank::Four, 4},
@@ -116,7 +116,9 @@ public:
     int get_value(){
         // use map to get value
 
-        cout << "Card Value: " << blackjackValues[enumRank] << endl;
+        // .at() checks if the index is in the map, by default if it is not, it will add it
+        // TODO: do the same for other maps
+        cout << "Card Value: " << blackjackValues.at(enumRank) << endl;
 
         return blackjackValues[enumRank];
     };
@@ -143,17 +145,18 @@ class Deck{
         // create a deck of cards
 
         // loop through enum variables and use them instead of Strings
-        // TODO: Change to vector
+        // TODO: use the keys in the map defined above instead of an array
         Suit allSuitsEnum[] = {Hearts, Spades, Diamonds, Clubs};
         Rank allRanksEnum[] = {Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, Ace};
 
         // calc length of arrays
+        // TODO: use the size of the map to get both 
         int numSuits = sizeof(allSuitsEnum) / sizeof(allSuitsEnum[0]);
         int numCards = sizeof(allRanksEnum) / sizeof(allRanksEnum[0]);
 
         // loop through suits
         // ++ infront of i to make it quicker
-        // TODO: why does ++i not start index at 1??
+        // TODO: can use python style loop through loop - range based for on map object
         for(int i =0; i<numSuits; ++i){
             
             // loop through variables
@@ -161,7 +164,8 @@ class Deck{
                 // memory is allocated
                 // pushback - copies the object to vector (2 copies)
                 // emplace - creates object directly in vector
-
+                
+                // TODO: fix deck creation after fixing above
                 deck.emplace_back(Card(allSuitsEnum[i], allRanksEnum[j]));
             }
         };
@@ -204,6 +208,10 @@ class Deck{
     };
 
 };
+
+// TODO: make a fuction to run a blackjack game, maybe look into Player class (to hold Deck)
+// TODO: make deck class empty on intialization and create function to populat and shuffle it
+// TODO: make a add_card_to_deck() function
 
 
 // Define the static member variable outside the class
