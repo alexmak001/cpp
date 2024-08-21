@@ -415,7 +415,6 @@ int main() {
         // check if player won
         // check if player is over 21
 
-
         player1Win = win_blackjack_game(player1);
         if(player1Win){
             cout << "Player 1 Won!" << endl;
